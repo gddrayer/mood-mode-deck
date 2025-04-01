@@ -139,7 +139,7 @@ function applyTimeTheme() {
             filteredModes = moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood)));
             filteredModes.forEach((mode, index) => {
                 const card = document.createElement('div');
-                card.className = "card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out";
+                card.className = `card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out ${getCardThemeClass()}`;
                 card.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.mood.join(", ")}</p>`;
                 card.onclick = () => showFullCard(index);
                 app.appendChild(card);
@@ -165,12 +165,26 @@ function applyTimeTheme() {
             app.classList.remove('hidden');
         }
     function applyCardTheme() {
-    const hour = new Date().getHours();
     const cards = document.querySelectorAll('.theme-card');
-    let cardClass = '';
+    const cardClass = getCardThemeClass();
+    cards.forEach(card => {
+        // Apply themed class to card
+        card.className = `card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out ${cardClass}`;
+    });
+}
+
+function getCardThemeClass() {
+    const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
-        cardClass = 'bg-white text-black';
+        return 'bg-white text-black';
     } else if (hour >= 12 && hour < 18) {
+        return 'bg-green-100 text-black';
+    } else if (hour >= 18 && hour < 23) {
+        return 'bg-purple-900 text-white';
+    } else {
+        return 'bg-gray-800 text-white';
+    }
+} else if (hour >= 12 && hour < 18) {
         cardClass = 'bg-green-100 text-black';
     } else if (hour >= 18 && hour < 23) {
         cardClass = 'bg-purple-900 text-white';
@@ -178,6 +192,7 @@ function applyTimeTheme() {
         cardClass = 'bg-gray-800 text-white';
     }
     cards.forEach(card => {
+        // Apply themed class to card
         card.className = `card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out ${cardClass}`;
     });
 }
