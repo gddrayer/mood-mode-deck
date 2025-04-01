@@ -18,7 +18,7 @@
     <div id="familiarPopup" class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
         <div class="bg-white text-black p-6 rounded-lg shadow-lg max-w-md text-center">
             <img id="familiarImage" src="" alt="Mood Familiar" class="mx-auto mb-4 rounded-full w-24 h-24 object-cover">
-            <p class="text-lg mb-4">Hey Bestie. You look like you’ve got rage cleaning in your soul. Let’s burn something (emotionally).</p>
+            <p class=\"text-lg mb-4\" id=\"familiarMessage\"></p>
             <button onclick="closeFamiliar()" class="bg-indigo-600 text-white px-4 py-2 rounded">Shoo</button>
         </div>
     </div>
@@ -49,13 +49,37 @@
 
     <script>
         const familiarImages = [
+            "https://i.imgur.com/VROoyAE.jpeg",
+            "https://i.imgur.com/GMm6lTj.jpeg",
             "https://i.imgur.com/OCddtdL.jpeg",
-            "https://i.imgur.com/j5YpThB.jpeg"
+            "https://i.imgur.com/j5YpThB.jpeg",
+            "https://i.imgur.com/GBPL5c3.jpeg",
+            "https://i.imgur.com/YnIsqq1.jpeg",
+            "https://i.imgur.com/WeQFeH9.jpeg"
         ];
 
         function showFamiliar() {
             const image = familiarImages[Math.floor(Math.random() * familiarImages.length)];
+            const messages = [
+                "Drink water, you dusty cryptid.",
+                "Your bones are dry. Fix it.",
+                "Did you eat a vegetable or are we still pretending fries count?",
+                "You can’t fight the patriarchy on an empty stomach, babe.",
+                "Stretch your limbs or become a statue. Your call.",
+                "Take your meds, chaos goblin. You’re not invincible—yet.",
+                "You are a soft animal powered by rage and cheese. Feed yourself.",
+                "If you’re dizzy, ask yourself: when did we last eat something round and crunchy?",
+                "You’re not tired. You’re under-fueled and over-caffeinated. Fix it, coward.",
+                "Clean your mouth. Brush your teeth. You’re not a swamp creature. Not today.",
+                "Hydrate or you can’t have any opinions. That’s the rule.",
+                "You're made of meat and impulse. Maintenance is not optional.",
+                "If the body fails, so does the vengeance arc.",
+                "Shower. Then come back and we’ll talk. I’ll wait. I’m eternal.",
+                "Snack now or I’m calling the brain cell and telling her to leave."
+            ];
+            const message = messages[Math.floor(Math.random() * messages.length)];
             document.getElementById('familiarImage').src = image;
+            document.getElementById('familiarMessage').innerText = message;
             document.getElementById('familiarPopup').classList.remove('hidden');
         }
 
