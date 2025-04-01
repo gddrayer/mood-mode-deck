@@ -16,36 +16,45 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 text-white min-h-screen p-6">
     <h1 class="text-4xl font-bold text-center mb-6">✨ Mood Mode Deck 🦝</h1>
-    <div class="flex justify-center mb-6 space-x-4">
-        <button onclick="filterMood('All')" class="bg-white text-black py-2 px-4 rounded">All</button>
-        <button onclick="filterMood('Cozy')" class="bg-green-400 text-black py-2 px-4 rounded">Cozy</button>
-        <button onclick="filterMood('Functional')" class="bg-yellow-400 text-black py-2 px-4 rounded">Functional</button>
-        <button onclick="filterMood('Extra')" class="bg-purple-400 text-black py-2 px-4 rounded">Extra</button>
-        <button onclick="filterMood('Angry')" class="bg-red-400 text-black py-2 px-4 rounded">Angry</button>
-        <button onclick="filterMood('Survival')" class="bg-blue-400 text-black py-2 px-4 rounded">Survival</button>
+    <div class="flex flex-wrap justify-center mb-4 space-x-2 space-y-2">
+        <button onclick="filterEnergy('All')" class="bg-white text-black py-2 px-4 rounded">All Energy</button>
+        <button onclick="filterEnergy('Low')" class="bg-green-400 text-black py-2 px-4 rounded">Low</button>
+        <button onclick="filterEnergy('Mid')" class="bg-yellow-400 text-black py-2 px-4 rounded">Mid</button>
+        <button onclick="filterEnergy('High')" class="bg-red-400 text-black py-2 px-4 rounded">High</button>
+    </div>
+    <div class="flex flex-wrap justify-center mb-6 space-x-2 space-y-2">
+        <button onclick="filterMood('All')" class="bg-gray-200 text-black py-2 px-4 rounded">All Moods</button>
+        <button onclick="filterMood('Cozy')" class="bg-green-300 text-black py-2 px-4 rounded">Cozy</button>
+        <button onclick="filterMood('Functional')" class="bg-yellow-300 text-black py-2 px-4 rounded">Functional</button>
+        <button onclick="filterMood('Extra')" class="bg-purple-300 text-black py-2 px-4 rounded">Extra</button>
+        <button onclick="filterMood('Angry')" class="bg-red-300 text-black py-2 px-4 rounded">Angry</button>
+        <button onclick="filterMood('Survival')" class="bg-blue-300 text-black py-2 px-4 rounded">Survival</button>
     </div>
     <div id="app" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     <div id="fullCard" class="hidden fixed inset-0 bg-black bg-opacity-90 p-6 overflow-auto"></div>
 
     <script>
         const moodModes = [
-            {name: "Petty & Productive", mood: ["Extra"], menu: ["Clean aggressively", "Symbolically take out trash", "Throw out expired food", "Telenovela scrub-down", "Purge drawer drama"], img: "https://i.imgur.com/XGPuAZA.jpeg"},
-            {name: "Chores, But Violent", mood: ["Angry", "Survival"], menu: ["Slam laundry", "Dramatic sighing", "Narrate your suffering", "Chore burden announcement", "Fake sobbing toilets"], img: "https://i.imgur.com/09udeCl.png"},
-            {name: "Feral Goblin", mood: ["Extra"], menu: ["Blitz drawer cleanup", "Dance-clean floors", "Cackle at pantry", "Trash vengeance", "Paper shred ceremony"], img: "https://i.imgur.com/nBLOwNB.png"},
-            {name: "Soft Witch", mood: ["Cozy", "Extra"], menu: ["Candle ritual", "Skincare glamor", "Plant whispering", "Weighted blanket commune", "Cryptic journaling"], img: "https://i.imgur.com/MIXig2Y.jpeg"},
-            {name: "The Sims Are Dying", mood: ["Survival"], menu: ["Microwave meal", "Fold one towel", "Laundry transfer", "Comfort show", "Secret shirt change"], img: "https://i.imgur.com/n1OsNTO.jpeg"},
-            {name: "CEO of Life", mood: ["Functional", "Extra"], menu: ["Budget sass", "Calendar queen", "Med organization", "Meal prep", "Bag apocalypse"], img: "https://i.imgur.com/f0IAzQI.jpeg"},
-            {name: "Frozen But Trying", mood: ["Survival"], menu: ["Toss or donate 3 items", "Write stuck thoughts", "Text someone", "3-min tidy", "Open window ritual"], img: "https://i.imgur.com/Ijk7t6y.jpeg"},
-            {name: "Main Character Indie Film", mood: ["Cozy", "Extra"], menu: ["Window staring tea session", "Tragic journaling", "Shelf ambiance", "Artsy movie", "Mysterious playlist"], img: "https://i.imgur.com/Xb4IHWi.jpeg"},
-            {name: "Burn It All Down", mood: ["Angry", "Extra"], menu: ["Trash rampage", "Email massacre", "Unfollow spree", "Ritualistic paper burning", "Violent to-do list"], img: "https://i.imgur.com/NTAaouc.png"},
-            {name: "Mildly Responsible Adult", mood: ["Functional"], menu: ["Bill pay", "Email/text reply", "Tomorrow prep", "Med & water refill", "Schedule something boring"], img: "https://i.imgur.com/24museF.jpeg"},
-            {name: "Theater Kid Funk", mood: ["Extra"], menu: ["Broadway music blast", "Comfort movie", "Pet monologue", "Fanfic doodle", "Ridiculous outfit change"], img: "https://i.imgur.com/CbevrE9.jpeg"},
-            {name: "Pillow Fort Rot", mood: ["Cozy", "Survival"], menu: ["Build pillow fort", "Wear pajamas all day", "Snack endlessly", "Watch comfort shows"], img: "https://i.imgur.com/32Zeftj.jpeg"}
+            {name: "Petty & Productive", energy: ["Mid", "High"], mood: ["Extra"], menu: ["Clean aggressively", "Symbolically take out trash", "Throw out expired food", "Telenovela scrub-down", "Purge drawer drama"], img: "https://i.imgur.com/XGPuAZA.jpeg"},
+            {name: "Chores, But Violent", energy: ["Mid"], mood: ["Angry", "Survival"], menu: ["Slam laundry", "Dramatic sighing", "Narrate your suffering", "Chore burden announcement", "Fake sobbing toilets"], img: "https://i.imgur.com/09udeCl.png"},
+            {name: "Feral Goblin", energy: ["Mid", "High"], mood: ["Extra"], menu: ["Blitz drawer cleanup", "Dance-clean floors", "Cackle at pantry", "Trash vengeance", "Paper shred ceremony"], img: "https://i.imgur.com/nBLOwNB.png"},
+            {name: "Soft Witch", energy: ["Mid"], mood: ["Cozy", "Extra"], menu: ["Candle ritual", "Skincare glamor", "Plant whispering", "Weighted blanket commune", "Cryptic journaling"], img: "https://i.imgur.com/MIXig2Y.jpeg"},
+            {name: "The Sims Are Dying", energy: ["Low"], mood: ["Survival"], menu: ["Microwave meal", "Fold one towel", "Laundry transfer", "Comfort show", "Secret shirt change"], img: "https://i.imgur.com/n1OsNTO.jpeg"},
+            {name: "CEO of Life", energy: ["Mid", "High"], mood: ["Functional", "Extra"], menu: ["Budget sass", "Calendar queen", "Med organization", "Meal prep", "Bag apocalypse"], img: "https://i.imgur.com/f0IAzQI.jpeg"},
+            {name: "Frozen But Trying", energy: ["Low", "Mid"], mood: ["Survival"], menu: ["Toss or donate 3 items", "Write stuck thoughts", "Text someone", "3-min tidy", "Open window ritual"], img: "https://i.imgur.com/Ijk7t6y.jpeg"},
+            {name: "Main Character Indie Film", energy: ["Low", "Mid"], mood: ["Cozy", "Extra"], menu: ["Window staring tea session", "Tragic journaling", "Shelf ambiance", "Artsy movie", "Mysterious playlist"], img: "https://i.imgur.com/Xb4IHWi.jpeg"},
+            {name: "Burn It All Down", energy: ["High"], mood: ["Angry", "Extra"], menu: ["Trash rampage", "Email massacre", "Unfollow spree", "Ritualistic paper burning", "Violent to-do list"], img: "https://i.imgur.com/NTAaouc.png"},
+            {name: "Mildly Responsible Adult", energy: ["Mid"], mood: ["Functional"], menu: ["Bill pay", "Email/text reply", "Tomorrow prep", "Med & water refill", "Schedule something boring"], img: "https://i.imgur.com/24museF.jpeg"},
+            {name: "Theater Kid Funk", energy: ["Low", "Mid"], mood: ["Extra"], menu: ["Broadway music blast", "Comfort movie", "Pet monologue", "Fanfic doodle", "Ridiculous outfit change"], img: "https://i.imgur.com/CbevrE9.jpeg"},
+            {name: "Pillow Fort Rot", energy: ["Low"], mood: ["Cozy", "Survival"], menu: ["Build pillow fort", "Wear pajamas all day", "Snack endlessly", "Watch comfort shows"], img: "https://i.imgur.com/32Zeftj.jpeg"}
         ];
 
-        function renderCards(filter = 'All') {
+        let currentEnergy = 'All';
+        let currentMood = 'All';
+
+        function renderCards() {
             app.innerHTML = '';
-            moodModes.filter(mode => filter === 'All' || mode.mood.includes(filter)).forEach((mode, index) => {
+            moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood))).forEach((mode, index) => {
                 const card = document.createElement('div');
                 card.className = "card bg-gray-800 rounded shadow-lg p-4";
                 card.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.mood.join(", ")}</p>`;
@@ -54,7 +63,8 @@
             });
         }
 
-        function filterMood(mood) { renderCards(mood); }
+        function filterEnergy(level) { currentEnergy = level; renderCards(); }
+        function filterMood(mood) { currentMood = mood; renderCards(); }
 
         function showFullCard(index) {
             app.classList.add('hidden');
