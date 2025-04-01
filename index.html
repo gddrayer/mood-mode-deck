@@ -10,10 +10,21 @@ function applyTimeTheme() {
     const hour = new Date().getHours();
     const themeBody = document.getElementById('themeBody');
     const familiarContainer = document.getElementById('familiarContainer');
+
     if (hour >= 5 && hour < 12) {
         themeBody.className = 'bg-gradient-to-br from-amber-200 via-yellow-300 to-pink-200 text-black min-h-screen p-6';
         familiarContainer.className = 'bg-white text-black p-6 rounded-lg shadow-lg max-w-md text-center';
-    }  else if (hour >= 18 && hour < 23) {
+    } else if (hour >= 12 && hour < 18) {
+        themeBody.className = 'bg-gradient-to-br from-blue-300 via-green-300 to-teal-200 text-black min-h-screen p-6';
+        familiarContainer.className = 'bg-green-100 text-black p-6 rounded-lg shadow-lg max-w-md text-center';
+    } else if (hour >= 18 && hour < 23) {
+        themeBody.className = 'bg-gradient-to-br from-purple-800 via-indigo-700 to-blue-800 text-white min-h-screen p-6';
+        familiarContainer.className = 'bg-purple-900 text-white p-6 rounded-lg shadow-lg max-w-md text-center';
+    } else {
+        themeBody.className = 'bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white min-h-screen p-6';
+        familiarContainer.className = 'bg-gray-800 text-white p-6 rounded-lg shadow-lg max-w-md text-center';
+    }
+}  else if (hour >= 18 && hour < 23) {
         themeBody.className = 'bg-gradient-to-br from-purple-800 via-indigo-700 to-blue-800 text-white min-h-screen p-6';
         familiarContainer.className = 'bg-purple-900 text-white p-6 rounded-lg shadow-lg max-w-md text-center';
     } else {
