@@ -51,10 +51,12 @@
 
         let currentEnergy = 'All';
         let currentMood = 'All';
+        let filteredModes = [];
 
         function renderCards() {
             app.innerHTML = '';
-            moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood))).forEach((mode, index) => {
+            filteredModes = moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood)));
+            filteredModes.forEach((mode, index) => {
                 const card = document.createElement('div');
                 card.className = "card bg-gray-800 rounded shadow-lg p-4";
                 card.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.mood.join(", ")}</p>`;
@@ -68,7 +70,7 @@
 
         function showFullCard(index) {
             app.classList.add('hidden');
-            const mode = moodModes[index];
+            const mode = filteredModes[index];
             fullCard.innerHTML = `
                 <button onclick="closeCard()" class="text-gray-400 float-right text-xl">&times; Close</button>
                 <h2 class="text-4xl font-bold mb-4">${mode.name}</h2>
@@ -84,5 +86,4 @@
 
         renderCards();
     </script>
-</body>
-</html>
+</body
