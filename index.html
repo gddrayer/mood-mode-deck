@@ -110,10 +110,11 @@ function applyTimeTheme() {
         }
 
         window.onload = () => {
-            applyTimeTheme();
-            showFamiliar();
-            setTimeout(renderCards, 100);
-        };
+    applyTimeTheme();
+    showFamiliar();
+    renderCards();
+    applyCardTheme();
+};
 
         const moodModes = [
             {name: "Petty & Productive", energy: ["Mid", "High"], mood: ["Extra", "Cleanfreak"], menu: ["Narrate cleaning like an influencer", "Spray air freshener like you're preforming an exorcism", "Unnecessarily fancy snack", "Chore burden announcement", "The Purge-but for your clothing"], img: "https://i.imgur.com/XGPuAZA.jpeg"},
@@ -150,14 +151,16 @@ function applyTimeTheme() {
         function filterMood(mood) { currentMood = mood; renderCards(); }
 
         function showFullCard(index) {
-            app.classList.add('hidden');
-            const mode = filteredModes[index];
-            fullCard.innerHTML = `
-                <h2 class="text-4xl font-bold mb-4">${mode.name}</h2>
-                <img src="${mode.img}" alt="${mode.name}" class="card-image">
-                <ul class="list-disc ml-6 text-lg">${mode.menu.map(item => `<li>${item}</li>`).join('')}</ul>
-                <div class="text-center mt-6"><button onclick="closeCard()" class="bg-gray-400 text-black py-2 px-4 rounded">Close</button></div>`;
-            fullCard.classList.remove('hidden');
+    app.classList.add('hidden');
+    const mode = filteredModes[index];
+    const themeClass = getCardThemeClass();
+    fullCard.className = `fixed inset-0 p-6 overflow-auto ${themeClass}`;
+    fullCard.innerHTML = `
+        <h2 class="text-4xl font-bold mb-4">${mode.name}</h2>
+        <img src="${mode.img}" alt="${mode.name}" class="card-image">
+        <ul class="list-disc ml-6 text-lg">${mode.menu.map(item => `<li>${item}</li>`).join('')}</ul>
+        <div class="text-center mt-6"><button onclick="closeCard()" class="bg-gray-400 text-black py-2 px-4 rounded">Close</button></div>`;
+    fullCard.classList.remove('hidden');
         }
 
         function closeCard() {
@@ -186,10 +189,7 @@ function getCardThemeClass() {
     }
 }
 
-setTimeout(() => {
-    renderCards();
-    applyCardTheme();
-}, 150);
+
 </script>
 </body>
 </html>
