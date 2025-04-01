@@ -184,9 +184,12 @@ function getCardThemeClass() {
     } else {
         return 'bg-gray-800 text-white';
     }
-} 
 }
+
 setTimeout(() => {
+    renderCards();
+    applyCardTheme();
+}, 150);(() => {
     renderCards();
     applyCardTheme();
 }, 150);
