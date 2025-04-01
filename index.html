@@ -132,7 +132,7 @@ function applyTimeTheme() {
             filteredModes = moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood)));
             filteredModes.forEach((mode, index) => {
                 const card = document.createElement('div');
-                card.className = "card bg-gray-800 rounded shadow-lg p-4";
+                card.className = "card rounded shadow-lg p-4 theme-card";
                 card.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.mood.join(", ")}</p>`;
                 card.onclick = () => showFullCard(index);
                 app.appendChild(card);
@@ -157,6 +157,24 @@ function applyTimeTheme() {
             fullCard.classList.add('hidden');
             app.classList.remove('hidden');
         }
-    </script>
+    function applyCardTheme() {
+    const hour = new Date().getHours();
+    const cards = document.querySelectorAll('.theme-card');
+    let cardClass = '';
+    if (hour >= 5 && hour < 12) {
+        cardClass = 'bg-white text-black';
+    } else if (hour >= 12 && hour < 18) {
+        cardClass = 'bg-green-100 text-black';
+    } else if (hour >= 18 && hour < 23) {
+        cardClass = 'bg-purple-900 text-white';
+    } else {
+        cardClass = 'bg-gray-800 text-white';
+    }
+    cards.forEach(card => {
+        card.className = `card rounded shadow-lg p-4 theme-card ${cardClass}`;
+    });
+}
+setTimeout(applyCardTheme, 150);
+</script>
 </body>
 </html>
