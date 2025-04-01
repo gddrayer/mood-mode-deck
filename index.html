@@ -15,6 +15,14 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 text-white min-h-screen p-6">
+    <div id="familiarPopup" class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+        <div class="bg-white text-black p-6 rounded-lg shadow-lg max-w-md text-center">
+            <img id="familiarImage" src="" alt="Mood Familiar" class="mx-auto mb-4 rounded-full w-24 h-24 object-cover">
+            <p class="text-lg mb-4">Hey Bestie. You look like you’ve got rage cleaning in your soul. Let’s burn something (emotionally).</p>
+            <button onclick="closeFamiliar()" class="bg-indigo-600 text-white px-4 py-2 rounded">Shoo</button>
+        </div>
+    </div>
+
     <h1 class="text-4xl font-bold text-center mb-6">✨ Mood Mode Deck 🦝</h1>
 
     <div class="flex flex-wrap justify-center mb-6 space-x-2 space-y-2">
@@ -40,20 +48,24 @@
     <div id="fullCard" class="hidden fixed inset-0 bg-black bg-opacity-90 p-6 overflow-auto"></div>
 
     <script>
-        const moodModes = [
-            {name: "Petty & Productive", energy: ["Mid", "High"], mood: ["Extra", "Cleanfreak"], menu: ["Narrate cleaning like an influencer", "Spray air freshener like you're preforming an exorcism", "Unnecessarily fancy snack", "Chore burden announcement", "The Purge-but for your clothing"], img: "https://i.imgur.com/XGPuAZA.jpeg"},
-            {name: "Chores, But Violent", energy: ["Mid"], mood: ["Angry", "Survival", "Cleanfreak"], menu: ["Agressive cleaning", "Put on gloves like a surgeon", "Narrate your suffering", "Blast angry music", "Clean with True Crime"], img: "https://i.imgur.com/09udeCl.png"},
-            {name: "Feral Goblin", energy: ["Mid", "High"], mood: ["Extra", "Cleanfreak"], menu: ["Blitz run cleanup - 15 min...GO!", "Fix Something Stupid and Small", "Night Power Walk", "Trash vengeance", "Text Picture of your conquest- VANQUISHED."], img: "https://i.imgur.com/nBLOwNB.png"},
-            {name: "Soft Witch", energy: ["Mid"], mood: ["Cozy", "Extra"], menu: ["🕯️ Light all the candles", "Swamp Witch playlist", "Brew a special treat", "Plant whispering", "Weighted blanket commune", "🔥 Bonfire"], img: "https://i.imgur.com/MIXig2Y.jpeg"},
-            {name: "The Sims Are Dying", energy: ["Low"], mood: ["Survival"], menu: ["Brush those teeth", "Grubhub or Hobo-dinner", "Are you Dehydrated?", "Comfort show", "Shower"], img: "https://i.imgur.com/n1OsNTO.jpeg"},
-            {name: "CEO of Life", energy: ["Mid", "High"], mood: ["Functional", "Extra"], menu: ["Shedule THAT appointment", "Pick a Zone and reset it like a legend", "Deep clean ONE item", "Meal prep", "Bag/Box apocalypse"], img: "https://i.imgur.com/f0IAzQI.jpeg"},
-            {name: "Frozen But Trying", energy: ["Low", "Mid"], mood: ["Survival"], menu: ["Stand in the place you need to be", "Clear a counter", "Send an emoji to someone", "Warm drink", "Put on shoes"], img: "https://i.imgur.com/Ijk7t6y.jpeg"},
-            {name: "Main Character Indie Film", energy: ["Low", "Mid"], mood: ["Cozy", "Extra"], menu: ["Window staring tea session", "Monochromatic coloring", "Minitures", "Artsy movie", "Mysterious playlist"], img: "https://i.imgur.com/Xb4IHWi.jpeg"},
-            {name: "Burn It All Down", energy: ["High"], mood: ["Angry", "Extra"], menu: ["Trash rampage", "Email massacre", "Unfollow spree", "Ritualistic paper burning", "Violent burn list", "Escape Plans"], img: "https://i.imgur.com/NTAaouc.png"},
-            {name: "Mildly Responsible Adult", energy: ["Mid"], mood: ["Functional"], menu: ["Bill pay", "Email/text reply", "Tomorrow prep", "Med & water refill", "Schedule something boring"], img: "https://i.imgur.com/24museF.jpeg"},
-            {name: "Theater Kid Funk", energy: ["Mid"], mood: ["Extra"], menu: ["Broadway music blast", "Comfort movie", "Pet monologue", "Fanfic doodle", "Ridiculous outfit change"], img: "https://i.imgur.com/CbevrE9.jpeg"},
-            {name: "Pillow Fort Rot", energy: ["Low"], mood: ["Cozy", "Survival"], menu: ["Build pillow fort", "Wear pajamas all day", "Snack endlessly", "Watch comfort shows"], img: "https://i.imgur.com/32Zeftj.jpeg"}
+        const familiarImages = [
+            "https://i.imgur.com/OCddtdL.jpeg",
+            "https://i.imgur.com/j5YpThB.jpeg"
         ];
+
+        function showFamiliar() {
+            const image = familiarImages[Math.floor(Math.random() * familiarImages.length)];
+            document.getElementById('familiarImage').src = image;
+            document.getElementById('familiarPopup').classList.remove('hidden');
+        }
+
+        function closeFamiliar() {
+            document.getElementById('familiarPopup').classList.add('hidden');
+        }
+
+        window.onload = showFamiliar;
+
+        const moodModes = [] // your existing moodModes array goes here
 
         let currentEnergy = 'All';
         let currentMood = 'All';
