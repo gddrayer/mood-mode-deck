@@ -139,7 +139,7 @@ function applyTimeTheme() {
             filteredModes = moodModes.filter(mode => (currentEnergy === 'All' || mode.energy.includes(currentEnergy)) && (currentMood === 'All' || mode.mood.includes(currentMood)));
             filteredModes.forEach((mode, index) => {
                 const card = document.createElement('div');
-                card.className = "card rounded shadow-lg p-4 theme-card";
+                card.className = "card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out";
                 card.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.mood.join(", ")}</p>`;
                 card.onclick = () => showFullCard(index);
                 app.appendChild(card);
@@ -178,7 +178,7 @@ function applyTimeTheme() {
         cardClass = 'bg-gray-800 text-white';
     }
     cards.forEach(card => {
-        card.className = `card rounded shadow-lg p-4 theme-card ${cardClass}`;
+        card.className = `card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out ${cardClass}`;
     });
 }
 setTimeout(() => {
