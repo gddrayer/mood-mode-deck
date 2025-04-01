@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Mode Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-4">
+    <h1 class="text-3xl font-bold mb-4">Mood Mode Deck 🦝</h1>
+    <div id="app"></div>
+
+    <script>
+        const moodModes = [
+            {
+                name: "Petty & Productive",
+                energy: ["Mid", "High"],
+                vibe: "Spite-fueled action",
+                menu: ["Clean aggressively", "Take out trash symbolically"]
+            },
+            {
+                name: "Soft Witch",
+                energy: ["Low", "Mid"],
+                vibe: "Gentle magic",
+                menu: ["Light candle", "Skincare spell"]
+            }
+            // Add remaining moods here
+        ];
+
+        const app = document.getElementById('app');
+        moodModes.forEach(mode => {
+            const div = document.createElement('div');
+            div.className = "mb-4 p-4 border rounded";
+            div.innerHTML = `
+                <h2 class="text-xl font-semibold">${mode.name}</h2>
+                <p>${mode.vibe}</p>
+                <ul class="list-disc ml-6">${mode.menu.map(m => `<li>${m}</li>`).join('')}</ul>
+            `;
+            app.appendChild(div);
+        });
+    </script>
+</body>
+</html>
