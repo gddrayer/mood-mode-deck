@@ -3,41 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Mode Deck</title>
+    <title>✨ Mood Mode Deck ✨</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white p-4">
-    <h1 class="text-3xl font-bold mb-4">Mood Mode Deck 🦝</h1>
-    <div id="app"></div>
+<body class="bg-gradient-to-r from-purple-900 to-gray-900 text-white min-h-screen p-6">
+    <h1 class="text-4xl font-bold mb-6 text-center">Mood Mode Deck 🦝✨</h1>
+    <div class="flex justify-center mb-6 space-x-4">
+        <button onclick="filterCards('All')" class="bg-white text-black py-2 px-4 rounded">All</button>
+        <button onclick="filterCards('Low')" class="bg-green-400 text-black py-2 px-4 rounded">Low</button>
+        <button onclick="filterCards('Mid')" class="bg-yellow-400 text-black py-2 px-4 rounded">Mid</button>
+        <button onclick="filterCards('High')" class="bg-red-400 text-black py-2 px-4 rounded">High</button>
+    </div>
+    <div id="app" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
     <script>
         const moodModes = [
-            {
-                name: "Petty & Productive",
-                energy: ["Mid", "High"],
-                vibe: "Spite-fueled action",
-                menu: ["Clean aggressively", "Take out trash symbolically"]
-            },
-            {
-                name: "Soft Witch",
-                energy: ["Low", "Mid"],
-                vibe: "Gentle magic",
-                menu: ["Light candle", "Skincare spell"]
-            }
-            // Add remaining moods here
+            {name: "Petty & Productive", energy: ["Mid", "High"], vibe: "Spite-fueled action", menu: ["Clean aggressively", "Symbolically take out trash", "Judge expired food", "Telenovela scrub-down", "Purge drawer drama"]},
+            {name: "Chores, But Violent", energy: ["Mid"], vibe: "Drama queen", menu: ["Slam laundry", "Dramatic sighing", "Vacuuming monologue", "Chore burden announcement", "Fake sobbing toilets"]},
+            {name: "Feral Goblin", energy: ["Mid", "High"], vibe: "Chaotic energy", menu: ["Blitz drawer cleanup", "Dance-clean floors", "Cackle at pantry", "Trash vengeance", "Paper shred ceremony"]},
+            {name: "Soft Witch", energy: ["Low", "Mid"], vibe: "Gentle magic", menu: ["Candle ritual", "Skincare glamor", "Plant whispering", "Weighted blanket commune", "Cryptic journaling"]},
+            {name: "The Sims Are Dying", energy: ["Low"], vibe: "Bare minimum", menu: ["Microwave meal", "Fold one towel", "Laundry transfer", "Comfort show", "Secret shirt change"]},
+            {name: "CEO of Life", energy: ["Mid", "High"], vibe: "Boss bitch", menu: ["Budget sass", "Calendar queen", "Med organization", "Meal prep", "Bag apocalypse"]},
+            {name: "Frozen But Trying", energy: ["Low", "Mid"], vibe: "Gentle thawing", menu: ["Toss or donate 3 items", "Write stuck thoughts", "Text someone", "3-min tidy", "Open window ritual"]},
+            {name: "Main Character Indie Film", energy: ["Low", "Mid"], vibe: "Melancholic drama", menu: ["Window staring tea session", "Tragic journaling", "Shelf ambiance", "Artsy movie", "Mysterious playlist"]},
+            {name: "Burn It All Down", energy: ["High"], vibe: "Chaos purge", menu: ["Trash rampage", "Email massacre", "Unfollow spree", "Ritualistic paper burning", "Violent to-do list"]},
+            {name: "Mildly Responsible Adult", energy: ["Mid"], vibe: "Functional boringness", menu: ["Bill pay", "Email/text reply", "Tomorrow prep", "Med & water refill", "Schedule something boring"]},
+            {name: "Theater Kid Funk", energy: ["Low", "Mid"], vibe: "Drama nostalgia", menu: ["Broadway lip sync", "Comfort movie quoting", "Pet monologue", "Fanfic doodle", "Ridiculous outfit change"]}
         ];
 
         const app = document.getElementById('app');
-        moodModes.forEach(mode => {
-            const div = document.createElement('div');
-            div.className = "mb-4 p-4 border rounded";
-            div.innerHTML = `
-                <h2 class="text-xl font-semibold">${mode.name}</h2>
-                <p>${mode.vibe}</p>
-                <ul class="list-disc ml-6">${mode.menu.map(m => `<li>${m}</li>`).join('')}</ul>
-            `;
-            app.appendChild(div);
-        });
+
+        function renderCards(filter = 'All') {
+            app.innerHTML = '';
+            moodModes.filter(mode => filter === 'All' || mode.energy.includes(filter)).forEach(mode => {
+                const div = document.createElement('div');
+                div.className = "bg-gray-800 rounded shadow-lg p-4 hover:bg-purple-800 transition duration-300";
+                div.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.vibe}</p><ul class="mt-2 list-disc ml-4">${mode.menu.map(item => `<li>${item}</li>`).join('')}</ul>`;
+                app.appendChild(div);
+            });
+        }
+
+        function filterCards(level) { renderCards(level); }
+
+        renderCards();
     </script>
 </body>
 </html>
+
