@@ -16,20 +16,25 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 text-white min-h-screen p-6">
     <h1 class="text-4xl font-bold text-center mb-6">✨ Mood Mode Deck 🦝</h1>
-    <div class="flex flex-wrap justify-center mb-4 space-x-2 space-y-2">
-        <button onclick="filterEnergy('All')" class="bg-white text-black py-2 px-4 rounded">All Energy</button>
-        <button onclick="filterEnergy('Low')" class="bg-green-400 text-black py-2 px-4 rounded">Low</button>
-        <button onclick="filterEnergy('Mid')" class="bg-yellow-400 text-black py-2 px-4 rounded">Mid</button>
-        <button onclick="filterEnergy('High')" class="bg-red-400 text-black py-2 px-4 rounded">High</button>
-    </div>
+
     <div class="flex flex-wrap justify-center mb-6 space-x-2 space-y-2">
-        <button onclick="filterMood('All')" class="bg-gray-200 text-black py-2 px-4 rounded">All Moods</button>
-        <button onclick="filterMood('Cozy')" class="bg-green-300 text-black py-2 px-4 rounded">Cozy</button>
-        <button onclick="filterMood('Functional')" class="bg-yellow-300 text-black py-2 px-4 rounded">Functional</button>
-        <button onclick="filterMood('Extra')" class="bg-purple-300 text-black py-2 px-4 rounded">Extra</button>
-        <button onclick="filterMood('Angry')" class="bg-red-300 text-black py-2 px-4 rounded">Angry</button>
-        <button onclick="filterMood('Survival')" class="bg-blue-300 text-black py-2 px-4 rounded">Survival</button>
+        <select id="energySelect" class="bg-gray-200 text-black py-2 px-4 rounded" onchange="filterEnergy(this.value)">
+            <option value="All">All Energy</option>
+            <option value="Low">Low</option>
+            <option value="Mid">Mid</option>
+            <option value="High">High</option>
+        </select>
+
+        <select id="moodSelect" class="bg-gray-200 text-black py-2 px-4 rounded" onchange="filterMood(this.value)">
+            <option value="All">All Moods</option>
+            <option value="Cozy">Cozy</option>
+            <option value="Functional">Functional</option>
+            <option value="Extra">Extra</option>
+            <option value="Angry">Angry</option>
+            <option value="Survival">Survival</option>
+        </select>
     </div>
+
     <div id="app" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     <div id="fullCard" class="hidden fixed inset-0 bg-black bg-opacity-90 p-6 overflow-auto"></div>
 
@@ -86,4 +91,5 @@
 
         renderCards();
     </script>
-</body
+</body>
+</html>
