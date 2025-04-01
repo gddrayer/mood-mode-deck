@@ -5,48 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ Mood Mode Deck ✨</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card { cursor: pointer; transition: transform 0.3s; }
+        .card:hover { transform: scale(1.05); }
+        .hidden { display: none; }
+        #fullCard { animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    </style>
 </head>
-<body class="bg-gradient-to-r from-purple-900 to-gray-900 text-white min-h-screen p-6">
-    <h1 class="text-4xl font-bold mb-6 text-center">Mood Mode Deck 🦝✨</h1>
-    <div class="flex justify-center mb-6 space-x-4">
-        <button onclick="filterCards('All')" class="bg-white text-black py-2 px-4 rounded">All</button>
-        <button onclick="filterCards('Low')" class="bg-green-400 text-black py-2 px-4 rounded">Low</button>
-        <button onclick="filterCards('Mid')" class="bg-yellow-400 text-black py-2 px-4 rounded">Mid</button>
-        <button onclick="filterCards('High')" class="bg-red-400 text-black py-2 px-4 rounded">High</button>
-    </div>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 text-white min-h-screen p-6">
+    <h1 class="text-4xl font-bold text-center mb-6">✨ Mood Mode Deck 🦝</h1>
     <div id="app" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    <div id="fullCard" class="hidden fixed inset-0 bg-black bg-opacity-90 p-6 overflow-auto"></div>
 
     <script>
         const moodModes = [
-            {name: "Petty & Productive", energy: ["Mid", "High"], vibe: "Spite-fueled action", menu: ["Clean aggressively", "Symbolically take out trash", "Judge expired food", "Telenovela scrub-down", "Purge drawer drama"]},
-            {name: "Chores, But Violent", energy: ["Mid"], vibe: "Drama queen", menu: ["Slam laundry", "Dramatic sighing", "Vacuuming monologue", "Chore burden announcement", "Fake sobbing toilets"]},
-            {name: "Feral Goblin", energy: ["Mid", "High"], vibe: "Chaotic energy", menu: ["Blitz drawer cleanup", "Dance-clean floors", "Cackle at pantry", "Trash vengeance", "Paper shred ceremony"]},
-            {name: "Soft Witch", energy: ["Low", "Mid"], vibe: "Gentle magic", menu: ["Candle ritual", "Skincare glamor", "Plant whispering", "Weighted blanket commune", "Cryptic journaling"]},
-            {name: "The Sims Are Dying", energy: ["Low"], vibe: "Bare minimum", menu: ["Microwave meal", "Fold one towel", "Laundry transfer", "Comfort show", "Secret shirt change"]},
-            {name: "CEO of Life", energy: ["Mid", "High"], vibe: "Boss bitch", menu: ["Budget sass", "Calendar queen", "Med organization", "Meal prep", "Bag apocalypse"]},
-            {name: "Frozen But Trying", energy: ["Low", "Mid"], vibe: "Gentle thawing", menu: ["Toss or donate 3 items", "Write stuck thoughts", "Text someone", "3-min tidy", "Open window ritual"]},
-            {name: "Main Character Indie Film", energy: ["Low", "Mid"], vibe: "Melancholic drama", menu: ["Window staring tea session", "Tragic journaling", "Shelf ambiance", "Artsy movie", "Mysterious playlist"]},
-            {name: "Burn It All Down", energy: ["High"], vibe: "Chaos purge", menu: ["Trash rampage", "Email massacre", "Unfollow spree", "Ritualistic paper burning", "Violent to-do list"]},
-            {name: "Mildly Responsible Adult", energy: ["Mid"], vibe: "Functional boringness", menu: ["Bill pay", "Email/text reply", "Tomorrow prep", "Med & water refill", "Schedule something boring"]},
-            {name: "Theater Kid Funk", energy: ["Low", "Mid"], vibe: "Drama nostalgia", menu: ["Broadway lip sync", "Comfort movie quoting", "Pet monologue", "Fanfic doodle", "Ridiculous outfit change"]}
+            {name: "Feral Goblin", energy: ["Mid", "High"], vibe: "Chaotic energy", menu: ["Blitz drawer cleanup", "Dance-clean floors"], img: "https://imgur.com/iUl3wwZ"},
+            {name: "CEO of Life", energy: ["Mid", "High"], vibe: "Boss bitch", menu: ["Budget sass", "Calendar queen"], img: "https://imgur.com/lD5bpLn"}
+            // Add other moods similarly...
         ];
 
         const app = document.getElementById('app');
+        const fullCard = document.getElementById('fullCard');
 
-        function renderCards(filter = 'All') {
-            app.innerHTML = '';
-            moodModes.filter(mode => filter === 'All' || mode.energy.includes(filter)).forEach(mode => {
-                const div = document.createElement('div');
-                div.className = "bg-gray-800 rounded shadow-lg p-4 hover:bg-purple-800 transition duration-300";
-                div.innerHTML = `<h2 class="text-2xl font-bold">${mode.name}</h2><p class="italic">${mode.vibe}</p><ul class="mt-2 list-disc ml-4">${mode.menu.map(item => `<li>${item}</li>`).join('')}</ul>`;
-                app.appendChild(div);
-            });
+        moodModes.forEach((mode, index) => {
+            const card = document.createElement('div');
+            card.className = "card bg-gray-800 rounded shadow-lg p-4";
+            card.innerHTML = `<h2 class="text-2xl">${mode.name}</h2><p>${mode.vibe}</p>`;
+            card.onclick = () => showFullCard(index);
+            app.appendChild(card);
+        });
+
+        function showFullCard(index) {
+            app.classList.add('hidden');
+            const mode = moodModes[index];
+            fullCard.innerHTML = `
+                <button onclick="closeCard()" class="text-gray-400 float-right text-xl">&times; Close</button>
+                <h2 class="text-4xl font-bold mb-4">${mode.name}</h2>
+                <img src="${mode.img}" alt="${mode.name}" class="mb-4 rounded shadow-lg">
+                <p class="italic text-xl mb-4">${mode.vibe}</p>
+                <ul class="list-disc ml-6">${mode.menu.map(i => `<li>${i}</li>`).join('')}</ul>
+            `;
+            fullCard.classList.remove('hidden');
         }
 
-        function filterCards(level) { renderCards(level); }
-
-        renderCards();
+        function closeCard() {
+            fullCard.classList.add('hidden');
+            app.classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
+
 
