@@ -184,17 +184,7 @@ function getCardThemeClass() {
     } else {
         return 'bg-gray-800 text-white';
     }
-} else if (hour >= 12 && hour < 18) {
-        cardClass = 'bg-green-100 text-black';
-    } else if (hour >= 18 && hour < 23) {
-        cardClass = 'bg-purple-900 text-white';
-    } else {
-        cardClass = 'bg-gray-800 text-white';
-    }
-    cards.forEach(card => {
-        // Apply themed class to card
-        card.className = `card rounded shadow-lg p-4 theme-card transition duration-300 ease-in-out ${cardClass}`;
-    });
+} 
 }
 setTimeout(() => {
     renderCards();
