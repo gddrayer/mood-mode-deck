@@ -181,8 +181,10 @@ function applyTimeTheme() {
         card.className = `card rounded shadow-lg p-4 theme-card ${cardClass}`;
     });
 }
-setTimeout(applyCardTheme, 150);
+setTimeout(() => {
+    renderCards();
+    applyCardTheme();
+}, 150);
 </script>
 </body>
 </html>
-
